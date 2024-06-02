@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -16,6 +16,16 @@ def increment(number):
 @app.route("/greeting/<string:name>/", methods=["GET"])
 def greet(name):
     return f"Hello {name}!"
+
+
+@app.route("/person/", methods=["GET"])
+def person():
+    return jsonify({"firstName": "EJ", "lastName": "Schildnecht"})
+
+
+@app.route("/numbers/<int:length>/", methods=["GET"])
+def numbers(length):
+    return jsonify(list(range(length)))
 
 
 if __name__ == "__main__":
