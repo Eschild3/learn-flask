@@ -48,11 +48,15 @@ file_parser.add_argument("file", location="files", type=FileStorage, help="For u
 
 @file_ns.route("/")
 class File(Resource):
-    def post(self):
+    @staticmethod
+    @file_ns.doc(parser=file_parser)
+    def post():
         args = file_parser.parse_args()
-        file = args.get("file")
+        file = args["file"]
         return f"Uploaded {file.filename}!"
 
+
+api.add_namespace(file_ns, path="/file")
 
 if __name__ == '__main__':
     app.run(debug=True)
